@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="warn" monitorInterval="30">
+    <Properties>
+        <Property name="PATTERN">%d{yyyy-MM-dd HH:mm:ss,SSS} %5p %c{1}:%L - %m%n</Property>
+        <Property name="PROJECT_NAME">xiaotang-test</Property>
+        <Property name="LOG_PATH">/Users/tangdou/logs</Property>
+        <Property name="LOG_BACKUP_PATH">/Users/tangdou/backuplogs</Property>
+    </Properties>
+
+    <Appenders>
+        <!-- 控制台 -->
+        <Console name="STDOUT" target="SYSTEM_OUT">
+            <ThresholdFilter level="DEBUG" onMatch="ACCEPT" onMismatch="DENY"/>
+            <PatternLayout>
+                <pattern>%d{ABSOLUTE} - %m%n</pattern>
+            </PatternLayout>
+        </Console>
+        <!-- 错误输出 -->
+        <RollingRandomAccessFile name="FILEERROR"
+                                 fileName="${LOG_PATH}/error/${PROJECT_NAME}-error.log"
+                                 filePattern="${LOG_BACKUP_PATH}/error/${PROJECT_NAME}-error-%d{yyyy-MM-dd}.log.gz">
+            <Filters>
+                <ThresholdFilter level="FATAL" onMatch="DENY"   onMismatch="NEUTRAL"/>
+                <ThresholdFilter level="ERROR" onMatch="ACCEPT" onMismatch="DENY"/>
+            </Filters>
+            <PatternLayout pattern="${PATTERN}"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1"/>
+            </Policies>
+
+            <DefaultRolloverStrategy>
+                <!-- 删除超过指定天数的归档日志 -->
+                <Delete basePath="${LOG_BACKUP_PATH}/error/" maxDepth="1">
+                    <IfFileName glob="${PROJECT_NAME}-*.log.gz"/>
+                    <IfLastModified age="12d"/>
+                </Delete>
+            </DefaultRolloverStrategy>
+        </RollingRandomAccessFile>
+        <!-- 警告输出 -->
+        <RollingRandomAccessFile name="FILEWARN"
+                                 fileName="${LOG_PATH}/warn/${PROJECT_NAME}-warn.log"
+                                 filePattern="${LOG_BACKUP_PATH}/warn/${PROJECT_NAME}-warn-%d{yyyy-MM-dd}.log.gz">
+            <Filters>
+                <ThresholdFilter level="ERROR" onMatch="DENY"   onMismatch="NEUTRAL"/>
+                <ThresholdFilter level="FATAL" onMatch="DENY"   onMismatch="NEUTRAL"/>
+                <ThresholdFilter level="WARN" onMatch="ACCEPT" onMismatch="DENY"/>
+            </Filters>
+            <PatternLayout pattern="${PATTERN}"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1"/>
+            </Policies>
+
+            <DefaultRolloverStrategy>
+                <Delete basePath="${LOG_BACKUP_PATH}/warn/" maxDepth="1">
+                    <IfFileName glob="${PROJECT_NAME}-*.log.gz">
+                        <IfLastModified age="12d"/>
+                    </IfFileName>
+                </Delete>
+            </DefaultRolloverStrategy>
+        </RollingRandomAccessFile>
+        <!-- 信息输出 -->
+        <RollingRandomAccessFile name="FILEINFO"
+                                 fileName="${LOG_PATH}/info/${PROJECT_NAME}-info.log"
+                                 filePattern="${LOG_BACKUP_PATH}/info/${PROJECT_NAME}-info-%d{yyyy-MM-dd}.log.gz">
+            <Filters>
+                <ThresholdFilter level="WARN"  onMatch="DENY"   onMismatch="NEUTRAL"/>
+                <ThresholdFilter level="ERROR" onMatch="DENY"   onMismatch="NEUTRAL"/>
+                <ThresholdFilter level="FATAL" onMatch="DENY"   onMismatch="NEUTRAL"/>
+                <ThresholdFilter level="INFO"  onMatch="ACCEPT" onMismatch="DENY"/>
+            </Filters>
+            <PatternLayout pattern="${PATTERN}"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1"/>
+            </Policies>
+
+            <DefaultRolloverStrategy>
+                <Delete basePath="${LOG_BACKUP_PATH}/info/" maxDepth="1">
+                    <IfFileName glob="${PROJECT_NAME}-*.log.gz">
+                        <IfLastModified age="12d"/>
+                    </IfFileName>
+                </Delete>
+            </DefaultRolloverStrategy>
+        </RollingRandomAccessFile>
+        <!-- 调试输出 -->
+        <RollingRandomAccessFile name="FILEDEBUG"
+                                 fileName="${LOG_PATH}/debug/${PROJECT_NAME}-debug.log"
+                                 filePattern="${LOG_BACKUP_PATH}/debug/${PROJECT_NAME}-debug-%d{yyyy-MM-dd}.log.gz">
+            <Filters>
+                <ThresholdFilter level="INFO"  onMatch="DENY"   onMismatch="NEUTRAL"/>
+                <ThresholdFilter level="WARN"  onMatch="DENY"   onMismatch="NEUTRAL"/>
+                <ThresholdFilter level="ERROR" onMatch="DENY"   onMismatch="NEUTRAL"/>
+                <ThresholdFilter level="FATAL" onMatch="DENY"   onMismatch="NEUTRAL"/>
+                <ThresholdFilter level="DEBUG" onMatch="ACCEPT" onMismatch="DENY"/>
+            </Filters>
+            <PatternLayout pattern="${PATTERN}"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1"/>
+            </Policies>
+
+            <DefaultRolloverStrategy>
+                <Delete basePath="${LOG_BACKUP_PATH}/debug/" maxDepth="1">
+                    <IfFileName glob="${PROJECT_NAME}-*.log.gz">
+                        <IfLastModified age="12d"/>
+                    </IfFileName>
+                </Delete>
+            </DefaultRolloverStrategy>
+        </RollingRandomAccessFile>
+        <!-- exposure输出 -->
+        <RollingRandomAccessFile name="exposureAppender"
+                                 fileName="${LOG_PATH}/exposure/${PROJECT_NAME}-exposure.log"
+                                 filePattern="${LOG_BACKUP_PATH}/exposure/${PROJECT_NAME}-exposure-%d{yyyy-MM-dd}.log.gz">
+            <ThresholdFilter level="DEBUG" onMatch="ACCEPT" onMismatch="DENY"/>
+            <PatternLayout pattern="${PATTERN}"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1"/>
+            </Policies>
+
+            <DefaultRolloverStrategy>
+                <Delete basePath="${LOG_BACKUP_PATH}/exposure/" maxDepth="1">
+                    <IfFileName glob="${PROJECT_NAME}-*.log.gz">
+                        <IfLastModified age="12d"/>
+                    </IfFileName>
+                </Delete>
+            </DefaultRolloverStrategy>
+        </RollingRandomAccessFile>
+
+        <!-- aliAppender输出 -->
+        <RollingRandomAccessFile name="aliAppender"
+                                 fileName="${LOG_PATH}/exposure/${PROJECT_NAME}-ali.log"
+                                 filePattern="${LOG_BACKUP_PATH}/exposure/${PROJECT_NAME}-ali-%d{yyyy-MM-dd}.log.gz">
+            <ThresholdFilter level="INFO" onMatch="ACCEPT" onMismatch="DENY"/>
+            <PatternLayout pattern="${PATTERN}"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1"/>
+            </Policies>
+
+            <DefaultRolloverStrategy>
+                <Delete basePath="${LOG_BACKUP_PATH}/exposure/" maxDepth="1">
+                    <IfFileName glob="${PROJECT_NAME}-ali*.log.gz">
+                        <IfLastModified age="12d"/>
+                    </IfFileName>
+                </Delete>
+            </DefaultRolloverStrategy>
+        </RollingRandomAccessFile>
+
+
+    </Appenders>
+
+    <Loggers>
+        <!-- 异步 -->
+        <AsyncLogger name="exposure" additivity="false" level="INFO">
+            <AppenderRef ref="exposureAppender"/>
+        </AsyncLogger>
+
+        <AsyncLogger name="ali" additivity="false" level="INFO">
+            <AppenderRef ref="aliAppender"/>
+        </AsyncLogger>
+
+        <AsyncRoot level="debug">
+            <AppenderRef ref="FILEDEBUG"/>
+            <AppenderRef ref="FILEINFO"/>
+            <AppenderRef ref="FILEWARN"/>
+            <AppenderRef ref="FILEERROR"/>
+            <!--生产环境注掉，以名日志太多-->
+            <AppenderRef ref="STDOUT"/>
+        </AsyncRoot>
+    </Loggers>
+</Configuration>

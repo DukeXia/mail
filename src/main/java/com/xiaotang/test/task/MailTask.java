@@ -1,19 +1,26 @@
 package com.xiaotang.test.task;
 
-import com.xiaotang.test.service.UserService;
+import com.xiaotang.test.service.MailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 @Component
-public class Usertask {
+public class MailTask {
 
     @Autowired
-    UserService userService;
+    MailService mailService;
 
+    /**
+     * 定时接收邮件
+     *
+     * @param
+     *
+     * @return
+     * */
     @Scheduled(initialDelay = 0, fixedRate = 1000 * 5)
-    public void showMe(){
-        System.out.println(userService.getUserById(1).toString());
+    public void receiveMail(){
+        mailService.receiveMail();
     }
 
 }
