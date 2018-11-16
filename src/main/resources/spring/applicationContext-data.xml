@@ -25,7 +25,7 @@
     <!--<util:properties id="properties" location="classpath:db.properties"/>-->
 
     <!-- 注解扫描 -->
-    <context:component-scan base-package="com.xiaotang.test"/>
+    <context:component-scan base-package="com.xiaotang.mail"/>
     <context:annotation-config/>
 
     <!-- 配置数据源 -->
@@ -42,12 +42,12 @@
         <!-- 数据源 -->
         <property name="dataSource" ref="dataSource"/>
         <!-- 映射mapper的xml文件 -->
-        <property name="mapperLocations" value="classpath*:com/xiaotang/test/mapper/UserMapper.xml" />
+        <property name="mapperLocations" value="classpath*:com/xiaotang/mail/mapper/UserMapper.xml" />
     </bean>
 
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
         <!-- 扫描的mapper接口 -->
-        <property name="basePackage" value="com.xiaotang.test.mapper"/>
+        <property name="basePackage" value="com.xiaotang.mail.mapper"/>
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
     </bean>
 
