@@ -20,7 +20,10 @@
 	    http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-4.2.xsd">
 
     <!-- 开启这个配置，spring才能识别@Scheduled注解 -->
-    <task:annotation-driven scheduler="adScheduler" mode="proxy"/>
+    <task:annotation-driven scheduler="adScheduler" executor="executor" mode="proxy"/>
+    <!-- 配置并发任务数量 -->
     <task:scheduler id="adScheduler" pool-size="15"/>
+    <!-- 配置异步调用 -->
+    <task:executor id="executor" pool-size="15"/>
 
 </beans>

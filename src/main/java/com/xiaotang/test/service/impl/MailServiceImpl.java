@@ -16,4 +16,12 @@ public class MailServiceImpl implements MailService {
         mail.receive();
     }
 
+    @Override
+    public void sendMail() {
+        try {
+            mail.sendMail();
+        } catch (Exception e) {
+            e.getStackTrace();
+        }
+    }
 }

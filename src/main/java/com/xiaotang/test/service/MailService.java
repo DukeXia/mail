@@ -11,4 +11,13 @@ public interface MailService {
      * */
     void receiveMail();
 
+    /**
+     * 发送邮件
+     *
+     * @param
+     *
+     * @return
+     * */
+    void sendMail();
+
 }
